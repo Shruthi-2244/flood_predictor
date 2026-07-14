@@ -17,43 +17,40 @@ An end-to-end Machine Learning web application designed to predict regional floo
 
 ## 📂 Project Structure
 ```
-FloodPrediction/
-├── app.py                     # Flask application core routes & history manager
-├── train_model.py             # Preprocessing pipeline, model fitting & visualization generator
-├── predict.py                 # Scaling & inference engine (Python API and CLI)
-├── requirements.txt           # Python application dependencies
-├── Procfile                   # Cloud process execution command
-├── runtime.txt                # Target Python environment details
-├── README.md                  # Comprehensive project manual
-├── model/
-│   ├── flood_model.pkl        # Best trained serialization object
-│   ├── scaler.pkl             # Fitted StandardScaler instance
-│   ├── model_comparison.csv   # Performance metrics table
-│   └── model_metadata.pkl     # Run statistics dictionary
-├── dataset/
-│   ├── flood.csv              # Synthetic meteorological records
-│   └── prediction_history.csv # User prediction storage
-├── static/
-│   ├── style.css              # Custom layout sheets & theme maps
-│   ├── script.js              # Client-side validation, theme-toggles & computations
-│   └── plots/                 # Saved EDA and Evaluation charts
-│       ├── histogram.png
-│       ├── correlation_heatmap.png
-│       ├── feature_importance.png
-│       ├── class_distribution.png
-│       ├── rainfall_distribution.png
-│       ├── confusion_matrix.png
-│       └── roc_curve.png
-├── templates/
-│   ├── index.html             # Landing page & history log template
-│   ├── predict.html           # Parameter entry form
-│   ├── result.html            # Gauge display & recommendation sheet
-│   └── about.html             # Pipeline science & tabbed charts dashboard
-├── notebooks/
-│   └── EDA.ipynb              # Exploratory Data Analysis Notebook
-└── utils/
-    ├── __init__.py            # Module initializer
-    └── preprocessing.py       # Data cleaning, outlier capping & splitting utilities
+flood_project/
+├── 1. Brainstorming & Ideation/   # Project ideas and abstract info
+│   └── .gitkeep
+├── 2. Requirement Analysis/       # Specs and library requisites
+│   └── .gitkeep
+├── 3. Project Design Phase/       # DFD diagrams and layout plan
+│   └── .gitkeep
+├── 4. Project Planning Phase/     # Milestone dates and timelines
+│   └── .gitkeep
+├── 5. Project Development Phase/  # Active Flask & ML Codebase
+│   ├── app.py                     # Flask web app router
+│   ├── train_model.py             # Fitting pipeline & visualizer
+│   ├── predict.py                 # Predict engine CLI & API
+│   ├── requirements.txt           # Python library requirements
+│   ├── Procfile                   # Process command for servers
+│   ├── runtime.txt                # Target Python environment
+│   ├── utils/                     # Preprocessor utilities
+│   │   └── preprocessing.py
+│   ├── dataset/                   # Rain datasets & outputs
+│   │   └── flood.csv
+│   ├── model/                     # Serialized PKL files & comparison CSVs
+│   │   ├── flood_model.pkl
+│   │   └── scaler.pkl
+│   ├── static/                    # Script, CSS, and output plots
+│   └── templates/                 # HTML UI layouts
+├── 6.Project Testing/             # Testing suite scripts
+│   ├── .gitkeep
+│   └── test_all.py
+├── 7.Project Documentation/       # Explanatory system markdown
+│   ├── .gitkeep
+│   └── Documentation.md
+├── 8.Project Demonstration/       # Recording links and assets
+│   └── .gitkeep
+└── README.md                      # Main readme file
 ```
 
 ---
@@ -83,8 +80,7 @@ source venv/bin/activate
 
 ### 3. Install Dependencies
 ```bash
-pip install --upgrade pip
-pip install -r requirements.txt
+pip install -r "5. Project Development Phase/requirements.txt"
 ```
 
 ---
@@ -92,16 +88,11 @@ pip install -r requirements.txt
 ## 🚀 Usage Guide
 
 ### Step 1: Train Models & Generate Visuals
-Run the model training pipeline. This script checks if the dataset `dataset/flood.csv` exists. If not, it automatically generates a realistic synthetic meteorological dataset simulating Monsoonal peaks.
-
+Run the model training pipeline:
 ```bash
+cd "5. Project Development Phase"
 python train_model.py
 ```
-*Outputs:*
-- Evaluates and logs a performance comparison table to the terminal.
-- Saves the best classifier to `model/flood_model.pkl`.
-- Saves the fitted scaler to `model/scaler.pkl`.
-- Generates 7 data-science plots to `static/plots/` for UI rendering.
 
 ### Step 2: Test via Command Line Interface (Optional)
 Evaluate a single set of precipitation parameters directly in the CLI:
@@ -115,6 +106,13 @@ Launch the Flask application locally:
 python app.py
 ```
 Open a browser and navigate to `http://localhost:5000` to interact with the early warning system.
+
+### Step 4: Run Automated Tests
+Execute verification unit tests:
+```bash
+cd "../6.Project Testing"
+python test_all.py
+```
 
 ---
 
