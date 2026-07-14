@@ -1,150 +1,112 @@
-# AI-Powered Flood Prediction and Early Warning System
+# Project Documentation: AquaGuard AI
 
-An end-to-end Machine Learning web application designed to predict regional flood risks. The system aggregates monthly precipitation metrics, yearly totals, and atmospheric cloud visibility indexes, using high-performance classification algorithms to deliver early warning statuses.
-
----
-
-## 🌟 Features
-- **Multi-Model ML Comparison:** Automatically trains and evaluates **Decision Tree**, **Random Forest**, **K-Nearest Neighbors (KNN)**, and **XGBoost** classifiers.
-- **Automated Model Selection:** Evaluates metrics (Accuracy, Precision, Recall, F1-Score, ROC AUC) and deploys the best performing block automatically (based on F1-Score).
-- **Responsive Dashboard UI:** Crafted in clean vanilla HTML5/CSS3 and Javascript, featuring a fully-responsive layout, glassmorphic styles, and fluid animations.
-- **Dark Mode Support:** A localized theme-controller toggles styling properties and persists selections across page loads.
-- **Prediction History Logs:** Stores all evaluated outputs in a CSV file and presents recent predictions in a historical log table.
-- **Report Downloader:** Enables downloading full meteorology reports and custom safety protocols in text format.
-- **Form Validation & Calculation:** Client-side scripts calculate annual rainfall aggregates in real-time as users type monthly metrics, checking value ranges before analysis.
+## 1. Project Title
+**AquaGuard AI: AI-Powered Flood Prediction and Early Warning System**
 
 ---
 
-## 📂 Project Structure
-```
-flood_project/
-├── 1. Brainstorming & Ideation/   # Project ideas and abstract info
-│   └── .gitkeep
-├── 2. Requirement Analysis/       # Specs and library requisites
-│   └── .gitkeep
-├── 3. Project Design Phase/       # DFD diagrams and layout plan
-│   └── .gitkeep
-├── 4. Project Planning Phase/     # Milestone dates and timelines
-│   └── .gitkeep
-├── 5. Project Development Phase/  # Active Flask & ML Codebase
-│   ├── app.py                     # Flask web app router
-│   ├── train_model.py             # Fitting pipeline & visualizer
-│   ├── predict.py                 # Predict engine CLI & API
-│   ├── requirements.txt           # Python library requirements
-│   ├── Procfile                   # Process command for servers
-│   ├── runtime.txt                # Target Python environment
-│   ├── utils/                     # Preprocessor utilities
-│   │   └── preprocessing.py
-│   ├── dataset/                   # Rain datasets & outputs
-│   │   └── flood.csv
-│   ├── model/                     # Serialized PKL files & comparison CSVs
-│   │   ├── flood_model.pkl
-│   │   └── scaler.pkl
-│   ├── static/                    # Script, CSS, and output plots
-│   └── templates/                 # HTML UI layouts
-├── 6.Project Testing/             # Testing suite scripts
-│   ├── .gitkeep
-│   └── test_all.py
-├── 7.Project Documentation/       # Explanatory system markdown
-│   ├── .gitkeep
-│   └── Documentation.md
-├── 8.Project Demonstration/       # Recording links and assets
-│   └── .gitkeep
-└── README.md                      # Main readme file
-```
+## 2. Abstract
+Climate volatility and monsoonal shifts cause severe flooding events that impact infrastructure, livelihoods, and public safety. *AquaGuard AI* is an automated Machine Learning classification system designed to predict localized flooding hazards. By evaluating a profile of 14 key inputs (12 monthly rainfall variables, annual rainfall sum, and cloud visibility index), the system calculates flooding risk in real-time.
+
+Four classification models (Decision Tree, Random Forest, KNN, and XGBoost) are automatically trained, benchmarked, and selected based on F1-Score. In our implementation, a Random Forest Classifier yielded a test accuracy of **95.25%** and an F1 Score of **0.9757**. The production system features a responsive, glassmorphic Flask web interface complete with dark mode toggle, prediction logs, validation graphs, and custom safety recommendations.
 
 ---
 
-## 🛠️ Installation & Setup
+## 3. Problem Statement
+Manual disaster alerts are frequently delayed due to complex data processing pipelines, leaving emergency teams and citizens with minimal response time. 
 
-### 1. Clone the Project Workspace
+**AquaGuard AI** addresses this by analyzing monthly precipitation spikes, annual totals, and visibility metrics to calculate flooding risk in less than a second. This early warning system helps communities take proactive safety measures.
+
+---
+
+## 4. Features
+- **Exploratory Data Analysis (EDA)**: Dynamic generation of 7 plots illustrating rainfall histogram curves, seasonal monsoonal trends, class ratios, correlation heatmaps, confusion matrices, ROC comparisons, and feature importances.
+- **Ensemble Classifier Benchmarking**: Evaluates and compares Decision Tree, Random Forest, KNN, and XGBoost structures.
+- **Automated Deployments**: Automatically identifies the best classifier based on F1-Score and saves it as `flood_model.pkl`.
+- **Responsive Web Dashboard**: A modern landing interface containing early-warning hero metrics, feature details, and accuracy cards.
+- **Parametric Form Panel**: Synchronized range slider and numeric inputs for cloud visibility, with automatic real-time annual rainfall calculation.
+- **Action Guidelines Sheet**: Renders custom warnings, action plans, and download hooks based on model outputs.
+- **History Logger**: Captures user predictions and timestamps, saving them to `dataset/prediction_history.csv` for display in the log sheet.
+- **Dark Mode Support**: Fluid styling transitions saved to LocalStorage.
+
+---
+
+## 5. Tech Stack
+- **Languages**: Python 3.10+, HTML5, CSS3, JavaScript (ES6)
+- **Machine Learning**: Scikit-Learn, XGBoost, Joblib, NumPy, Pandas
+- **Visualizations**: Matplotlib, Seaborn
+- **Backend Serving**: Flask, Gunicorn
+- **Frontend Design**: Vanilla CSS (no dependencies), Google Fonts (Outfit, Plus Jakarta Sans)
+
+---
+
+## 6. Installation Steps
+
+### Clone & Initialize Environment
 ```bash
-git clone <repository-url>
-cd flood_project
-```
+# Clone the repository
+git clone https://github.com/Shruthi-2244/flood_predictor.git
+cd flood_predictor
 
-### 2. Set Up a Virtual Environment
-We recommend using Python 3.10+ to maintain compatibility with modern Scikit-Learn and XGBoost wheels.
+# Create a virtual environment
+py -m venv venv
 
-**On Windows:**
-```powershell
-python -m venv venv
-venv\Scripts\activate
-```
-
-**On macOS / Linux:**
-```bash
-python3 -m venv venv
+# Activate virtual environment
+# Windows PowerShell:
+venv\Scripts\Activate.ps1
+# macOS/Linux:
 source venv/bin/activate
 ```
 
-### 3. Install Dependencies
+### Install Required Dependencies
 ```bash
 pip install -r "5. Project Development Phase/requirements.txt"
 ```
 
 ---
 
-## 🚀 Usage Guide
+## 7. Usage Instructions
 
-### Step 1: Train Models & Generate Visuals
-Run the model training pipeline:
+### Running Model Training
+To run preprocessing, train the classifiers, and generate visual charts:
 ```bash
 cd "5. Project Development Phase"
-python train_model.py
+py train_model.py
 ```
 
-### Step 2: Test via Command Line Interface (Optional)
-Evaluate a single set of precipitation parameters directly in the CLI:
+### Running Automated Test Suite
+To run code verification checks:
 ```bash
-python predict.py --jan 30 --feb 25 --mar 50 --jun 400 --jul 600 --aug 500 --visibility 45
+cd "6.Project Testing"
+py test_all.py
 ```
 
-### Step 3: Run the Web Server
-Launch the Flask application locally:
+### Running Web Application
+To launch the Flask localhost server:
 ```bash
-python app.py
+cd "5. Project Development Phase"
+py app.py
 ```
-Open a browser and navigate to `http://localhost:5000` to interact with the early warning system.
-
-### Step 4: Run Automated Tests
-Execute verification unit tests:
-```bash
-cd "../6.Project Testing"
-python test_all.py
-```
+Open [http://127.0.0.1:5000/](http://127.0.0.1:5000/) in your browser.
 
 ---
 
-## 🌍 IBM Cloud Deployment
-
-The application is deployment-ready for **IBM Cloud Code Engine** or **IBM Cloud Foundry** utilizing the provided `Procfile` and `runtime.txt`.
-
-### Deployment using IBM Cloud Code Engine (Recommended)
-
-1. **Install IBM Cloud CLI:**
-   Download and install the CLI from [IBM Cloud](https://cloud.ibm.com/docs/cli).
-2. **Log In to IBM Cloud:**
-   ```bash
-   ibmcloud login -a cloud.ibm.com -g Default
-   ```
-3. **Target Code Engine:**
-   ```bash
-   ibmcloud cr login
-   ibmcloud target -cf
-   ```
-4. **Deploy Application from Source:**
-   Run the following command in the project root. IBM Code Engine will automatically detect the Python environment via `requirements.txt` and serve the web interface via the `Procfile`:
-   ```bash
-   ibmcloud ce app create --name aquaguard-flood-system --build-source . --port 5000
-   ```
-5. **Access URL:**
-   Code Engine will print the live HTTPS endpoint URL upon successful build.
+## 8. Screenshots
+*(Plots are output under `static/plots/` during training)*
+- **Rainfall Histogram**: `static/plots/histogram.png`
+- **Correlation Heatmap**: `static/plots/correlation_heatmap.png`
+- **Class Balance**: `static/plots/class_distribution.png`
+- **Confusion Matrix**: `static/plots/confusion_matrix.png`
+- **ROC Curves**: `static/plots/roc_curve.png`
 
 ---
 
-## 🔮 Future Scope
-- **Live Meteorological Feed:** Integrating public API feeds (e.g., OpenWeatherMap) to fetch real-time precipitation estimates.
-- **Spatial Map Projections:** Plotting hazard ratings across geographic spatial layers using Mapbox or Leaflet.
-- **SMS Broadcasting:** Utilizing Twilio hooks to broadcast SMS warning alerts to localized regions under severe threat levels.
-# flood_predictor
+## 9. Future Scope
+- **Live APIs Integration**: Connect OpenWeather API to load local forecast inputs automatically.
+- **Geographic Information Systems (GIS)**: Map regional hazard zones visually using Leaflet.js.
+- **Notification Services**: Integrate Twilio SMS notifications to broadcast alerts to affected areas.
+
+---
+
+## 10. Team Member Details
+- **Shruthi** ([@Shruthi-2244](https://github.com/Shruthi-2244)) - Lead Machine Learning Engineer & Developer
