@@ -1,0 +1,25 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Environments
+.env
+.venv
+pip-selfcheck.json
+
+# Local history logs (optional to ignore to keep repo clean)
+dataset/prediction_history.csv
+
+# OS metadata
+.DS_Store
+Thumbs.db

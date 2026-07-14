@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Assessment Report - AquaGuard AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('home') }}" class="nav-logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+                <span>AquaGuard AI</span>
+            </a>
+            <nav class="nav-menu">
+                <a href="{{ url_for('home') }}" class="nav-link">Home</a>
+                <a href="{{ url_for('predict') }}" class="nav-link">Predict</a>
+                <a href="{{ url_for('about') }}" class="nav-link">About Project</a>
+                <a href="{{ url_for('history') }}" class="nav-link">Prediction History</a>
+            </nav>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
+                    <svg id="theme-icon" class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                </button>
+                <a href="{{ url_for('predict') }}" class="btn-primary-nav">Analyze Risk</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="section-result animate-fade-in">
+            <div class="section-header-center">
+                <span class="badge">Analysis Output</span>
+                <h1 class="section-title">Risk Assessment Output</h1>
+                <p class="section-subtitle">Real-time predictive hazard computation complete.</p>
+            </div>
+
+            <!-- Result Highlights Container -->
+            <div class="grid-2-1">
+                
+                <!-- Main Status Card -->
+                <div class="card result-status-card {% if data.prediction == 1 %}border-red{% else %}border-green{% endif %}">
+                    <div class="status-header">
+                        {% if data.prediction == 1 %}
+                        <div class="status-indicator indicator-red">
+                            <span class="pulse-ring-red"></span>
+                            🔴 Flood Risk Detected
+                        </div>
+                        <h2 class="status-heading text-red">High Hazard Probability</h2>
+                        <p class="status-subtext">
+                            Based on your meteorological input, the model projects a significant probability of flooding. Immediate preventative precautions and vigilance are recommended.
+                        </p>
+                        {% else %}
+                        <div class="status-indicator indicator-green">
+                            <span class="pulse-ring-green"></span>
+                            🟢 Safe: Low Flood Risk
+                        </div>
+                        <h2 class="status-heading text-green">Stable Atmospheric Conditions</h2>
+                        <p class="status-subtext">
+                            Meteorological parameters fall within normal bounds. There is currently a very low probability of flood event hazards. Standard operations may proceed.
+                        </p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Dynamic Action Guidelines -->
+                    <div class="guidelines-box">
+                        <h3>{% if data.prediction == 1 %}⚠️ Recommended Emergency Actions{% else %}✅ General Preventive Measures{% endif %}</h3>
+                        <ul class="guidelines-list">
+                            {% if data.prediction == 1 %}
+                            <li><strong>Prepare Emergency Kit:</strong> Keep medications, documents, fresh water, and basic rations ready.</li>
+                            <li><strong>Elevate Valuables:</strong> Move electrical appliances and high-priority assets to higher shelving levels.</li>
+                            <li><strong>Secure Storm Barriers:</strong> Setup sandbags or water barriers around ground entryways.</li>
+                            <li><strong>Plan Evacuation Route:</strong> Verify clear egress paths to community high points or shelter zones.</li>
+                            <li><strong>Stay Tuned:</strong> Keep a battery-powered radio or local weather applications active for emergency alerts.</li>
+                            {% else %}
+                            <li><strong>Clean Drainage Paths:</strong> Keep local gutters, culverts, and storm drains clear of leaves or debris.</li>
+                            <li><strong>Review Plans:</strong> Periodic family reviews of general emergency steps and contact numbers.</li>
+                            <li><strong>Vigilant Monitoring:</strong> Continue tracking short-term radar feeds during high-intensity thunderstorms.</li>
+                            <li><strong>Soil Absorption:</strong> Support natural ground retention through maintaining lawn vegetation and permeable surfaces.</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+
+                    <!-- Action Panel Buttons -->
+                    <div class="result-actions">
+                        <a href="{{ url_for('predict') }}" class="btn-secondary">Analyze New Parameters</a>
+                        <a href="{{ url_for('download_report') }}" class="btn-primary">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                            </svg>
+                            Download Full Report
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Probability & Metric Circular Gauge -->
+                <div class="card gauge-card">
+                    <h3>Risk Probability</h3>
+                    <div class="gauge-container">
+                        <svg class="progress-ring" width="200" height="200">
+                            <!-- Background Track -->
+                            <circle class="progress-ring-bg" stroke-width="14" fill="transparent" r="80" cx="100" cy="100"/>
+                            <!-- Active Progress -->
+                            <circle class="progress-ring-circle {% if data.prediction == 1 %}color-red-stroke{% else %}color-green-stroke{% endif %}" 
+                                    stroke-width="14" fill="transparent" r="80" cx="100" cy="100" 
+                                    style="stroke-dasharray: 502.65; stroke-dashoffset: {{ 502.65 - (data.probability * 502.65) }};"/>
+                        </svg>
+                        <div class="gauge-text-overlay">
+                            <span class="gauge-percentage">{{ "%.1f" | format(data.probability * 100) }}%</span>
+                            <span class="gauge-label">Hazard Level</span>
+                        </div>
+                    </div>
+                    <div class="gauge-details">
+                        <div class="detail-row">
+                            <span>Analysis Time:</span>
+                            <strong>{{ data.timestamp }}</strong>
+                        </div>
+                        <div class="detail-row">
+                            <span>Calculated Annual Rain:</span>
+                            <strong>{{ data.inputs['Annual Rainfall'] }} mm</strong>
+                        </div>
+                        <div class="detail-row">
+                            <span>Cloud Visibility Index:</span>
+                            <strong>{{ data.inputs['Cloud Visibility'] }}%</strong>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Input Summary Collapse -->
+            <div class="card card-inputs-summary">
+                <div class="summary-header">
+                    <h3>Parameters Analysed</h3>
+                    <span class="badge">14 Features</span>
+                </div>
+                <div class="table-container">
+                    <table class="summary-table">
+                        <thead>
+                            <tr>
+                                <th>Jan</th>
+                                <th>Feb</th>
+                                <th>Mar</th>
+                                <th>Apr</th>
+                                <th>May</th>
+                                <th>Jun</th>
+                                <th>Jul</th>
+                                <th>Aug</th>
+                                <th>Sep</th>
+                                <th>Oct</th>
+                                <th>Nov</th>
+                                <th>Dec</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ data.inputs['January Rainfall'] }}</td>
+                                <td>{{ data.inputs['February Rainfall'] }}</td>
+                                <td>{{ data.inputs['March Rainfall'] }}</td>
+                                <td>{{ data.inputs['April Rainfall'] }}</td>
+                                <td>{{ data.inputs['May Rainfall'] }}</td>
+                                <td>{{ data.inputs['June Rainfall'] }}</td>
+                                <td>{{ data.inputs['July Rainfall'] }}</td>
+                                <td>{{ data.inputs['August Rainfall'] }}</td>
+                                <td>{{ data.inputs['September Rainfall'] }}</td>
+                                <td>{{ data.inputs['October Rainfall'] }}</td>
+                                <td>{{ data.inputs['November Rainfall'] }}</td>
+                                <td>{{ data.inputs['December Rainfall'] }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 AquaGuard AI. Built for disaster resilience & climate intelligence.</p>
+            <div class="footer-links">
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('predict') }}">Predict</a>
+                <a href="{{ url_for('about') }}">About</a>
+                <a href="{{ url_for('history') }}">History</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About AquaGuard AI - Flood Prediction System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('home') }}" class="nav-logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+                <span>AquaGuard AI</span>
+            </a>
+            <nav class="nav-menu">
+                <a href="{{ url_for('home') }}" class="nav-link">Home</a>
+                <a href="{{ url_for('predict') }}" class="nav-link">Predict</a>
+                <a href="{{ url_for('about') }}" class="nav-link active">About Project</a>
+                <a href="{{ url_for('history') }}" class="nav-link">Prediction History</a>
+            </nav>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
+                    <svg id="theme-icon" class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                </button>
+                <a href="{{ url_for('predict') }}" class="btn-primary-nav">Analyze Risk</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Section Header -->
+        <section class="section-about animate-fade-in">
+            <div class="section-header-center">
+                <span class="badge">Project Specifications</span>
+                <h1 class="section-title">System Architecture & Science</h1>
+                <p class="section-subtitle">How AquaGuard AI integrates meteorological datasets with predictive models.</p>
+            </div>
+
+            <!-- Problem Statement & Workflow Grid -->
+            <div class="grid-2 gap-md">
+                <!-- Left Side: Problem Statement -->
+                <div class="card card-about-info">
+                    <span class="badge">Problem Statement</span>
+                    <h2>The Flood Mitigation Challenge</h2>
+                    <p>
+                        Extreme rainfall occurrences driven by monsoonal fluctuations pose an escalating risk to lives, agriculture, and urban infrastructure. Traditional forecasting systems rely on raw radar metrics that often miss localized topographical interactions.
+                    </p>
+                    <p>
+                        <strong>AquaGuard AI</strong> addresses this by building predictive patterns mapping historical monthly precipitation cycles, annual total aggregations, and ambient cloud visibility indexes to output localized hazard calculations.
+                    </p>
+                </div>
+                
+                <!-- Right Side: Workflow steps -->
+                <div class="card card-about-info">
+                    <span class="badge">System Pipeline</span>
+                    <h2>Analytical Operations</h2>
+                    <ol class="workflow-steps">
+                        <li>
+                            <span class="step-num">1</span>
+                            <div>
+                                <strong>Data Ingestion & Cleaning:</strong> Fills null metrics using feature medians, filters duplicate values, and caps extreme outliers using IQR limits.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="step-num">2</span>
+                            <div>
+                                <strong>Feature Standardization:</strong> Centers and scales measurements via StandardScaler so that differing numeric ranges do not skew distance-based functions.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="step-num">3</span>
+                            <div>
+                                <strong>Multi-model Execution:</strong> Fits Decision Tree, Random Forest, KNN, and XGBoost structures on historical test fractions.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="step-num">4</span>
+                            <div>
+                                <strong>Automated Selection:</strong> Extracts F1-Scores across structures to determine and save the best-performing model block.
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Technology Stack & Architecture -->
+            <div class="card tech-card animate-fade-in">
+                <h2>Technologies and Core Libraries</h2>
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <strong>Backend</strong>
+                        <span>Python, Flask, Gunicorn, Joblib</span>
+                    </div>
+                    <div class="tech-item">
+                        <strong>Data Science & ML</strong>
+                        <span>Scikit-Learn, XGBoost, Pandas, NumPy</span>
+                    </div>
+                    <div class="tech-item">
+                        <strong>Visualizations</strong>
+                        <span>Matplotlib, Seaborn</span>
+                    </div>
+                    <div class="tech-item">
+                        <strong>Frontend</strong>
+                        <span>HTML5, CSS3 (Vanilla), JavaScript (ES6)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Dashboard Visualizations -->
+            <div class="analytics-dashboard animate-fade-in">
+                <div class="dashboard-header">
+                    <h2>Meteorological & Model Performance Dashboard</h2>
+                    <p class="text-secondary">Explore the interactive analytics and validation charts computed during model fit routines.</p>
+                </div>
+
+                {% if charts_exist %}
+                <!-- Tabs Navigation -->
+                <div class="tabs-nav">
+                    <button class="tab-btn active" data-tab="eda-tab">Exploratory Data Analysis (EDA)</button>
+                    <button class="tab-btn" data-tab="model-tab">Model Training & Evaluation</button>
+                </div>
+
+                <!-- Tabs Content -->
+                <div class="tabs-content-container">
+                    <!-- EDA Tab -->
+                    <div id="eda-tab" class="tab-pane active">
+                        <div class="grid-2">
+                            <div class="chart-box">
+                                <h4>Annual Rainfall Distribution</h4>
+                                <img src="{{ url_for('static', filename='plots/histogram.png') }}" alt="Annual Rainfall Histogram" class="img-responsive">
+                                <p class="chart-caption">Aggregated annual rainfall distribution curves illustrating normal range boundaries.</p>
+                            </div>
+                            <div class="chart-box">
+                                <h4>Monthly Rainfall Profile</h4>
+                                <img src="{{ url_for('static', filename='plots/rainfall_distribution.png') }}" alt="Monthly Rainfall Distribution" class="img-responsive">
+                                <p class="chart-caption">Average precipitation cycles per month showing the clear seasonal monsoon peak.</p>
+                            </div>
+                            <div class="chart-box">
+                                <h4>Class Balance Ratio</h4>
+                                <img src="{{ url_for('static', filename='plots/class_distribution.png') }}" alt="Class Balance Ratio" class="img-responsive">
+                                <p class="chart-caption">Proportion of flooding vs stable hazard occurrences inside the training set.</p>
+                            </div>
+                            <div class="chart-box">
+                                <h4>Multivariate Correlation Matrix</h4>
+                                <img src="{{ url_for('static', filename='plots/correlation_heatmap.png') }}" alt="Correlation Heatmap" class="img-responsive">
+                                <p class="chart-caption">Linear correlation coefficients across monthly metrics showing seasonal dependencies.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Model Validation Tab -->
+                    <div id="model-tab" class="tab-pane">
+                        <div class="grid-2">
+                            <div class="chart-box">
+                                <h4>Model ROC Comparison Curves</h4>
+                                <img src="{{ url_for('static', filename='plots/roc_curve.png') }}" alt="ROC Comparison" class="img-responsive">
+                                <p class="chart-caption">True Positive vs False Positive rates comparing Decision Tree, RF, KNN, and XGBoost.</p>
+                            </div>
+                            <div class="chart-box">
+                                <h4>Confusion Matrix (Selected Model)</h4>
+                                <img src="{{ url_for('static', filename='plots/confusion_matrix.png') }}" alt="Confusion Matrix" class="img-responsive">
+                                <p class="chart-caption">True values vs predicted outputs highlighting type I and type II error frequencies.</p>
+                            </div>
+                            <div class="chart-box chart-full">
+                                <h4>Predictive Feature Importance Index</h4>
+                                <img src="{{ url_for('static', filename='plots/feature_importance.png') }}" alt="Feature Importance" class="img-responsive">
+                                <p class="chart-caption">Weighted variable values illustrating that June-August and Annual totals dominate predictive outcomes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="alert-box-warning">
+                    <p>⚠️ <strong>Charts Unavailable:</strong> The analysis visualizations have not been generated yet. Please run <code>python train_model.py</code> to fit models and generate the visual charts.</p>
+                </div>
+                {% endif %}
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 AquaGuard AI. Built for disaster resilience & climate intelligence.</p>
+            <div class="footer-links">
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('predict') }}">Predict</a>
+                <a href="{{ url_for('about') }}">About</a>
+                <a href="{{ url_for('history') }}">History</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

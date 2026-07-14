@@ -1,0 +1,151 @@
+# AI-Powered Flood Prediction and Early Warning System
+
+An end-to-end Machine Learning web application designed to predict regional flood risks. The system aggregates monthly precipitation metrics, yearly totals, and atmospheric cloud visibility indexes, using high-performance classification algorithms to deliver early warning statuses.
+
+---
+
+## 🌟 Features
+- **Multi-Model ML Comparison:** Automatically trains and evaluates **Decision Tree**, **Random Forest**, **K-Nearest Neighbors (KNN)**, and **XGBoost** classifiers.
+- **Automated Model Selection:** Evaluates metrics (Accuracy, Precision, Recall, F1-Score, ROC AUC) and deploys the best performing block automatically (based on F1-Score).
+- **Responsive Dashboard UI:** Crafted in clean vanilla HTML5/CSS3 and Javascript, featuring a fully-responsive layout, glassmorphic styles, and fluid animations.
+- **Dark Mode Support:** A localized theme-controller toggles styling properties and persists selections across page loads.
+- **Prediction History Logs:** Stores all evaluated outputs in a CSV file and presents recent predictions in a historical log table.
+- **Report Downloader:** Enables downloading full meteorology reports and custom safety protocols in text format.
+- **Form Validation & Calculation:** Client-side scripts calculate annual rainfall aggregates in real-time as users type monthly metrics, checking value ranges before analysis.
+
+---
+
+## 📂 Project Structure
+```
+FloodPrediction/
+├── app.py                     # Flask application core routes & history manager
+├── train_model.py             # Preprocessing pipeline, model fitting & visualization generator
+├── predict.py                 # Scaling & inference engine (Python API and CLI)
+├── requirements.txt           # Python application dependencies
+├── Procfile                   # Cloud process execution command
+├── runtime.txt                # Target Python environment details
+├── README.md                  # Comprehensive project manual
+├── model/
+│   ├── flood_model.pkl        # Best trained serialization object
+│   ├── scaler.pkl             # Fitted StandardScaler instance
+│   ├── model_comparison.csv   # Performance metrics table
+│   └── model_metadata.pkl     # Run statistics dictionary
+├── dataset/
+│   ├── flood.csv              # Synthetic meteorological records
+│   └── prediction_history.csv # User prediction storage
+├── static/
+│   ├── style.css              # Custom layout sheets & theme maps
+│   ├── script.js              # Client-side validation, theme-toggles & computations
+│   └── plots/                 # Saved EDA and Evaluation charts
+│       ├── histogram.png
+│       ├── correlation_heatmap.png
+│       ├── feature_importance.png
+│       ├── class_distribution.png
+│       ├── rainfall_distribution.png
+│       ├── confusion_matrix.png
+│       └── roc_curve.png
+├── templates/
+│   ├── index.html             # Landing page & history log template
+│   ├── predict.html           # Parameter entry form
+│   ├── result.html            # Gauge display & recommendation sheet
+│   └── about.html             # Pipeline science & tabbed charts dashboard
+├── notebooks/
+│   └── EDA.ipynb              # Exploratory Data Analysis Notebook
+└── utils/
+    ├── __init__.py            # Module initializer
+    └── preprocessing.py       # Data cleaning, outlier capping & splitting utilities
+```
+
+---
+
+## 🛠️ Installation & Setup
+
+### 1. Clone the Project Workspace
+```bash
+git clone <repository-url>
+cd flood_project
+```
+
+### 2. Set Up a Virtual Environment
+We recommend using Python 3.10+ to maintain compatibility with modern Scikit-Learn and XGBoost wheels.
+
+**On Windows:**
+```powershell
+python -m venv venv
+venv\Scripts\activate
+```
+
+**On macOS / Linux:**
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 3. Install Dependencies
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+---
+
+## 🚀 Usage Guide
+
+### Step 1: Train Models & Generate Visuals
+Run the model training pipeline. This script checks if the dataset `dataset/flood.csv` exists. If not, it automatically generates a realistic synthetic meteorological dataset simulating Monsoonal peaks.
+
+```bash
+python train_model.py
+```
+*Outputs:*
+- Evaluates and logs a performance comparison table to the terminal.
+- Saves the best classifier to `model/flood_model.pkl`.
+- Saves the fitted scaler to `model/scaler.pkl`.
+- Generates 7 data-science plots to `static/plots/` for UI rendering.
+
+### Step 2: Test via Command Line Interface (Optional)
+Evaluate a single set of precipitation parameters directly in the CLI:
+```bash
+python predict.py --jan 30 --feb 25 --mar 50 --jun 400 --jul 600 --aug 500 --visibility 45
+```
+
+### Step 3: Run the Web Server
+Launch the Flask application locally:
+```bash
+python app.py
+```
+Open a browser and navigate to `http://localhost:5000` to interact with the early warning system.
+
+---
+
+## 🌍 IBM Cloud Deployment
+
+The application is deployment-ready for **IBM Cloud Code Engine** or **IBM Cloud Foundry** utilizing the provided `Procfile` and `runtime.txt`.
+
+### Deployment using IBM Cloud Code Engine (Recommended)
+
+1. **Install IBM Cloud CLI:**
+   Download and install the CLI from [IBM Cloud](https://cloud.ibm.com/docs/cli).
+2. **Log In to IBM Cloud:**
+   ```bash
+   ibmcloud login -a cloud.ibm.com -g Default
+   ```
+3. **Target Code Engine:**
+   ```bash
+   ibmcloud cr login
+   ibmcloud target -cf
+   ```
+4. **Deploy Application from Source:**
+   Run the following command in the project root. IBM Code Engine will automatically detect the Python environment via `requirements.txt` and serve the web interface via the `Procfile`:
+   ```bash
+   ibmcloud ce app create --name aquaguard-flood-system --build-source . --port 5000
+   ```
+5. **Access URL:**
+   Code Engine will print the live HTTPS endpoint URL upon successful build.
+
+---
+
+## 🔮 Future Scope
+- **Live Meteorological Feed:** Integrating public API feeds (e.g., OpenWeatherMap) to fetch real-time precipitation estimates.
+- **Spatial Map Projections:** Plotting hazard ratings across geographic spatial layers using Mapbox or Leaflet.
+- **SMS Broadcasting:** Utilizing Twilio hooks to broadcast SMS warning alerts to localized regions under severe threat levels.
