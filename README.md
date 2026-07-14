@@ -87,7 +87,9 @@ To launch the Flask localhost server:
 cd "5. Project Development Phase"
 py app.py
 ```
-Open [http://127.0.0.1:5000/](http://127.0.0.1:5000/) in your browser.
+Open https://flood-predictor-1-v5te.onrender.com in your browser.
+
+LINK https://flood-predictor-1-v5te.onrender.com
 
 ---
 
@@ -109,4 +111,4 @@ Open [http://127.0.0.1:5000/](http://127.0.0.1:5000/) in your browser.
 ---
 
 ## 10. Team Member Details
-- **Shruthi** ([@Shruthi-2244](https://github.com/Shruthi-2244)) - Lead Machine Learning Engineer & Developer
+- **Shruthi** ([@Shruthi-2244](https://github.com/Shruthi-2244)) - Team Member
