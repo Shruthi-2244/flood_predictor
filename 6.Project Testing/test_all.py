@@ -20,9 +20,18 @@ class TestFloodPredictionSystem(unittest.TestCase):
         """
         Sets up paths and references to files.
         """
-        cls.test_csv_path = os.path.join(src_path, "dataset/flood.csv")
-        cls.model_path = os.path.join(src_path, "model/flood_model.pkl")
-        cls.scaler_path = os.path.join(src_path, "model/scaler.pkl")
+        cls.original_cwd = os.getcwd()
+        os.chdir(src_path)
+        cls.test_csv_path = "dataset/flood.csv"
+        cls.model_path = "model/flood_model.pkl"
+        cls.scaler_path = "model/scaler.pkl"
+
+    @classmethod
+    def tearDownClass(cls):
+        """
+        Restores original working directory.
+        """
+        os.chdir(cls.original_cwd)
 
     def test_dataset_generation_and_loading(self):
         """
