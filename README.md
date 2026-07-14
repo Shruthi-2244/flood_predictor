@@ -147,3 +147,4 @@ The application is deployment-ready for **IBM Cloud Code Engine** or **IBM Cloud
 - **Live Meteorological Feed:** Integrating public API feeds (e.g., OpenWeatherMap) to fetch real-time precipitation estimates.
 - **Spatial Map Projections:** Plotting hazard ratings across geographic spatial layers using Mapbox or Leaflet.
 - **SMS Broadcasting:** Utilizing Twilio hooks to broadcast SMS warning alerts to localized regions under severe threat levels.
+# flood_predictor
