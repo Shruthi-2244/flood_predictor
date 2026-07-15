@@ -112,7 +112,7 @@ LINK https://flood-predictor-1-v5te.onrender.com
 
 ## 10. Team Member Details
 - **Shruthi** ([@Shruthi-2244](https://github.com/Shruthi-2244)) - Team Member
-
+-**Pravalika** - Team Lead
 ---
 
 ## 11. Demo Video
